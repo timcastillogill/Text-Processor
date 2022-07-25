@@ -1,5 +1,7 @@
 public class Processor {
     public static String analyse(String sentence) {
-        return null;
+        String[] words = sentence.split(" ");
+
+        return "This text has " + words.length + " word";
     }
 }
