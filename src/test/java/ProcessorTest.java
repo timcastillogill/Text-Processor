@@ -2,6 +2,7 @@ import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 
@@ -14,7 +15,7 @@ public class ProcessorTest {
 
         String result = Processor.analyse(oneWord);
 
-        assertEquals("This text has 1 word", result);
+        assertThat(result, CoreMatchers.containsString("1 word"));
     }
     @Test
     @DisplayName("Checks sentence of two words")
@@ -23,7 +24,8 @@ public class ProcessorTest {
 
         String result = Processor.analyse(twoWords);
 
-        assertEquals("This text has 2 words", result);
+        assertThat(result, CoreMatchers.containsString("This text has 2 words"));
+
     }
 
     @Test
@@ -33,7 +35,7 @@ public class ProcessorTest {
 
         String result = Processor.analyse(wholeSentence);
 
-        assertEquals("This text has 7 words", result);
+        assertThat(result, CoreMatchers.containsString("This text has 7 words"));
     }
 
     @Test
@@ -43,5 +45,14 @@ public class ProcessorTest {
 
         String result = Processor.analyse(oneWord);
         assertThat(result, CoreMatchers.containsString("1. hello"));
+    }
+
+    @Test
+    @DisplayName("Does not list repeated words")
+    void only_matched_words_listed() {
+        String sameWordTwice = "hello hello";
+
+        String result = Processor.analyse(sameWordTwice);
+        assertThat(result, not(CoreMatchers.containsString("2. hello")));
     }
 }

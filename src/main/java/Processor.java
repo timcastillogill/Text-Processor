@@ -1,8 +1,20 @@
 public class Processor {
     public static String analyse(String sentence) {
         String[] words = sentence.split(" ");
-        String pluralise = words.length == 1 ? " word" : " words";
+        int arrayLength = words.length;
 
-        return "This text has " + words.length + pluralise;
+        return wordList(words) + "This text has " + arrayLength + pluralise(arrayLength);
+    }
+
+    private static String pluralise(int arrayLength) {
+        return arrayLength == 1 ? " word" : " words";
+    }
+
+    private  static String wordList(String[] words) {
+        String list = "";
+        for (int i = 0; i < words.length; i++) {
+            list += (i + 1) + ". " + words[i];
+        }
+        return list;
     }
 }
