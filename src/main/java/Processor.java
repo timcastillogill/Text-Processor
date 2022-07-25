@@ -1,2 +1,5 @@
-package PACKAGE_NAME;public class Processor {
+public class Processor {
+    public static String analyse(String sentence) {
+        return null;
+    }
 }
