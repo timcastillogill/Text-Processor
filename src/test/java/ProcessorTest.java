@@ -1,7 +1,9 @@
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class ProcessorTest {
 
@@ -32,5 +34,14 @@ public class ProcessorTest {
         String result = Processor.analyse(wholeSentence);
 
         assertEquals("This text has 7 words", result);
+    }
+
+    @Test
+    @DisplayName("Checks that the return statement includes a numbered list")
+    void check_return_statement_has_number() {
+        String oneWord = "hello";
+
+        String result = Processor.analyse(oneWord);
+        assertThat(result, CoreMatchers.containsString("1. hello"));
     }
 }
